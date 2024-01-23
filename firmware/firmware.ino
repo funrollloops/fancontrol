@@ -3,7 +3,7 @@
 
 constexpr static int PWM_PIN = 5;
 constexpr static int TACH_PIN = 2;
-constexpr static int THERMISTOR_PIN = A0;
+constexpr static int THERMISTOR_PIN = 3;
 
 static volatile uint16_t tach_count = 0;
 
