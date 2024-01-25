@@ -1,54 +1,66 @@
-#include "display.h"
 #include "celsius_from_adc_table.h"
+#include "display.h"
 
-constexpr static int PWM_PIN = 5;
-constexpr static int TACH_PIN = 2;
-constexpr static int THERMISTOR_PIN = 3;
+constexpr static int PWM_PIN = PB1;
+constexpr static int TACH_PIN = PB4;
+constexpr static int THERMISTOR_PIN = PB3;
 
 static volatile uint16_t tach_count = 0;
 
 static Display display;
 
-void tach_isr() {
-  ++tach_count;
-}
+struct {
+  void begin(int) {}
+  void print(const char* s) {}
+  void print(uint16_t i) {}
+  void println(const char* s) {}
+  void println(uint16_t i) {}
+  void println(float f) {}
+  void println() {}
+} Serial;
+
+constexpr int digitalPinToInterrupt(int pin) { return pin; }
+
+void tach_isr() { ++tach_count; }
 
 // Returns the RPM.
 void run_fan_at_percent(uint8_t pct) {
-  analogWrite(PWM_PIN, uint16_t(pct)*255/100);
+  analogWrite(PWM_PIN, uint16_t(pct) * 255 / 100);
 }
 
 uint16_t estimate_rpm() {
   tach_count = 0;
   delay(1000);
   // Each revolution is 2 pulses; We sampled for 1s, so multiply by 60.
-  return tach_count * uint16_t(60 / 2);
+  return tach_count * uint16_t(60) / 2;
 }
 
 void update_display(uint16_t pct, uint16_t rpm, float temp_c) {
-  display.clearDisplay();
-  display.setTextSize(2);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0,0);
-  display.print(pct);
-  display.print("% ");
-  display.print(rpm);
-  display.print("rpm");
-  display.setCursor(0, 24);
-  display.setTextSize(4);
-  display.print(temp_c > 99 ? 99 : temp_c < 0 ? 0 : round(temp_c));
-  display.println("C");
-  display.display();
+  oled.clear();
+  oled.setFont(FONT8X16P);  // display.setTextSize(2);
+  oled.setCursor(0, 1);
+  oled.print(pct);
+  oled.print("% ");
+  oled.print(rpm);
+  oled.setFont(FONT6X8P);
+  oled.print("rpm");
+  oled.setFontX2Smooth(FONT8X16P);
+  oled.setCursor(0, 4);
+  oled.print(temp_c > 99 ? 99 : temp_c < 0 ? 0 : round(temp_c));
+  oled.println("C");
+  oled.switchRenderFrame();
 }
 
 float read_internal_temperature() {
-  ADCSRA |= _BV(ADSC); // start the conversion
-  while (bit_is_set(ADCSRA, ADSC)); // ADSC is cleared when the conversion finishes
-  return (ADCW - 324.31) / 1.22; // combine bytes & correct for temp offset (approximate)}
+  ADCSRA |= _BV(ADSC);  // start the conversion
+  while (bit_is_set(ADCSRA, ADSC))
+    ;  // ADSC is cleared when the conversion finishes
+  return (ADCW - 324.31) /
+         1.22;  // combine bytes & correct for temp offset (approximate)}
 }
 
 uint16_t read_thermistor_adc() {
-  //return 202 - 32.4 * log(analogRead(A0));
+  // return 202 - 32.4 * log(analogRead(A0));
   return analogRead(A0);
 }
 
@@ -59,8 +71,8 @@ float thermistor_adc_to_celsius(uint16_t adc) {
   // Binary search celsius_from_adc_table for the closest value.
   uint8_t low = 0;
   uint8_t high = MAX;
-  // The index is the temperature in C, the value is the ADC reading. ADC readings
-  // are decreasing with temperature.
+  // The index is the temperature in C, the value is the ADC reading. ADC
+  // readings are decreasing with temperature.
   while (low < high) {
     uint8_t mid = (low + high) / 2;
     if (table[mid] == adc) {
@@ -74,11 +86,11 @@ float thermistor_adc_to_celsius(uint16_t adc) {
   if (low <= 0 || low >= MAX) {
     return low;
   }
-  return low - (100 * (adc - table[low]) / (table[low - 1] - table[low]) / 100.);
+  return low -
+         (100 * (adc - table[low]) / (table[low - 1] - table[low]) / 100.);
 }
 
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
   pinMode(PWM_PIN, INPUT);
   // Need pullup
   pinMode(TACH_PIN, INPUT_PULLUP);
@@ -111,5 +123,6 @@ void loop() {
   Serial.println(thermistor_temp);
   auto rpm = estimate_rpm();
   analogWrite(PWM_PIN, speed);
-  update_display(static_cast<uint16_t>(speed)*100/255, rpm, thermistor_temp);
+  update_display(static_cast<uint16_t>(speed) * 100 / 255, rpm,
+                 thermistor_temp);
 }

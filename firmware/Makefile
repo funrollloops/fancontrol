@@ -1,14 +1,24 @@
 .PHONY: upload compile
 
-#FQBN=attiny:avr:ATtinyX5:cpu=attiny85,clock=internal8  #arduino:avr:nano:cpu=atmega328old
-FQBN=arduino:avr:nano:cpu=atmega328old
-PORT=/dev/ttyUSB0
+INO=firmware.ino
+HEX=build/$(INO).hex
+FQBN=attiny:avr:ATtinyX5:cpu=attiny85,clock=internal8
+#FQBN=arduino:avr:nano:cpu=atmega328old
+PORT=/dev/ttyACM0
+BUILD_DIR=build
+PROGRAMMER=stk500v1
 
-compile: firmware.ino celsius_from_adc_table.h
-	arduino-cli compile --fqbn $(FQBN) --build-property "build.extra_flags=-DSSD1306_NO_SPLASH -std=c++17" $<
+$(HEX): $(INO) celsius_from_adc_table.h Makefile
+	mkdir -p $(BUILD_DIR)/sketch
+	touch compile_commands.json
+	arduino-cli compile --fqbn $(FQBN) --build-property "build.extra_flags=-DSSD1306_NO_SPLASH -std=c++17" --build-path=$(BUILD_DIR)
 
-upload: compile
-	arduino-cli upload -p $(PORT) --fqbn $(FQBN) $<
+compile: $(HEX)
+
+upload: $(HEX)
+	avrdude -P $(PORT) -p t85 -c stk500v1 -b 19200 -D -U flash:w:$<:i
+
+	arduino-cli upload port $(PORT) --fqbn $(FQBN) --input-dir $(BUILD_DIR) --programmer $(PROGRAMMER)
 
 celcius_from_adc_table.h: generate_table.py
 	python3 $<

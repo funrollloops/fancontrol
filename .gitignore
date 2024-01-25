@@ -1,0 +1,5 @@
+firmware/build
+firmware/celsius_from_adc_table.h
+board/fancontroller-backups
+board/fp-info-cache
+board/fancontroller.kicad_sch-bak
