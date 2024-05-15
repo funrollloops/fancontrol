@@ -105,7 +105,7 @@ void loop() {
   } else if (thermistor_temp > 45) {
     // linear from 30% to 100% (255) in this range.
     speed = (255 - MIN_SPEED) * (thermistor_temp - 45) / 10 + MIN_SPEED;
-  } else if (thermistor_temp > 20) {
+  } else if (thermistor_temp > 20) {  // 20C = 68F
     speed = MIN_SPEED;
   } else {
     speed = 255;  // In case of a bad reading, run at full speed.
