@@ -32,7 +32,12 @@ void update_display(uint16_t pct, uint16_t rpm, float temp_c) {
   display.setCursor(0,0);
   display.print(pct);
   display.print("% ");
-  display.print(rpm);
+  if (rpm > 10'000) {
+    display.print(rpm / 1024);
+    display.print("k");
+  } else {
+    display.print(rpm);
+  }
   display.print("rpm");
   display.setCursor(0, 24);
   display.setTextSize(4);
