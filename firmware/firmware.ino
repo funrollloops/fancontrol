@@ -96,19 +96,21 @@ void setup() {
   display.init();
 }
 
-static constexpr bool PRIME = true;
+static constexpr bool PRIME = false;
 
 void loop() {
-  static uint8_t MIN_SPEED = ceil(.30 * 255);
+  constexpr uint8_t MIN_SPEED = ceil(.20 * 255);
+  constexpr uint8_t LINEAR_BEGIN = 40;
+  constexpr uint8_t LINEAR_END = 55;
   auto thermistor_adc = read_thermistor_adc();
   auto thermistor_temp = thermistor_adc_to_celsius(thermistor_adc);
   uint8_t speed = 255;
   if constexpr (!PRIME) {
     if (thermistor_temp > 55) {
       speed = 255;
-    } else if (thermistor_temp > 45) {
+    } else if (thermistor_temp > LINEAR_BEGIN) {
       // linear from 30% to 100% (255) in this range.
-      speed = (255 - MIN_SPEED) * (thermistor_temp - 45) / 10 + MIN_SPEED;
+      speed = (255 - MIN_SPEED) * (thermistor_temp - LINEAR_BEGIN) / (LINEAR_END - LINEAR_BEGIN)  + MIN_SPEED;
     } else if (thermistor_temp > 20) {  // 20C = 68F
       speed = MIN_SPEED;
     } else {
