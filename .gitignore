@@ -1,3 +1,4 @@
 pcb/fancontroller-backups/**
 pcb/#*
 pcb/~*
+firmware/stm32cubemx/build/**
