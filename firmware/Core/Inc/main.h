@@ -58,6 +58,14 @@ void SystemClock_Config(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define TACH2_Pin GPIO_PIN_2
+#define TACH2_GPIO_Port GPIOA
+#define PWM_Pin GPIO_PIN_3
+#define PWM_GPIO_Port GPIOA
+#define TACH1_Pin GPIO_PIN_4
+#define TACH1_GPIO_Port GPIOA
+#define TEMP_Pin GPIO_PIN_1
+#define TEMP_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

@@ -5679,12 +5679,16 @@
 		(uuid "03d8f244-a77b-45d2-82a1-c913fc0c629f")
 	)
 	(no_connect
-		(at 247.65 52.07)
-		(uuid "33c9a6b1-5ac7-45e8-9a34-bee34d430276")
+		(at 107.95 158.75)
+		(uuid "156bbcb2-e339-407e-b725-8d60a79d4f21")
 	)
 	(no_connect
-		(at 140.97 102.87)
-		(uuid "34897985-8bf4-4c81-881c-3a09ef720dc8")
+		(at 107.95 156.21)
+		(uuid "2ba76792-2cad-4e6d-8a5c-bdf050177779")
+	)
+	(no_connect
+		(at 247.65 52.07)
+		(uuid "33c9a6b1-5ac7-45e8-9a34-bee34d430276")
 	)
 	(no_connect
 		(at 107.95 125.73)
@@ -5719,6 +5723,10 @@
 		(uuid "773bf1a2-9282-4e86-8dd9-a8fc33960980")
 	)
 	(no_connect
+		(at 107.95 163.83)
+		(uuid "7a6fa390-7dbe-45ca-b07c-68dcc842ebbb")
+	)
+	(no_connect
 		(at 107.95 133.35)
 		(uuid "7b4cdcca-6774-4d5f-adb5-5872607e1269")
 	)
@@ -5727,16 +5735,12 @@
 		(uuid "7bccbd07-b199-447c-bdea-234a9cbea38a")
 	)
 	(no_connect
-		(at 140.97 107.95)
-		(uuid "7e824308-2230-4512-b4f3-78ce2e25b321")
+		(at 140.97 100.33)
+		(uuid "7f8d870e-c453-4a6d-8431-718efa5b68f1")
 	)
 	(no_connect
 		(at 107.95 148.59)
 		(uuid "9e5e7c31-5951-47c6-9fe9-10f996402f68")
-	)
-	(no_connect
-		(at 140.97 105.41)
-		(uuid "ba39c013-736b-4a69-b525-a136a42a1e15")
 	)
 	(no_connect
 		(at 140.97 97.79)
@@ -5753,10 +5757,6 @@
 	(no_connect
 		(at 107.95 161.29)
 		(uuid "c8adcd7c-87f0-46c1-b9d9-3306a407f16a")
-	)
-	(no_connect
-		(at 107.95 128.27)
-		(uuid "d6830c5e-fc69-4a7e-a36f-844090867998")
 	)
 	(no_connect
 		(at 140.97 118.11)
@@ -5842,7 +5842,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 158.75) (xy 107.95 158.75)
+			(xy 148.59 102.87) (xy 140.97 102.87)
 		)
 		(stroke
 			(width 0)
@@ -5932,7 +5932,7 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 100.33) (xy 146.05 100.33)
+			(xy 102.87 128.27) (xy 107.95 128.27)
 		)
 		(stroke
 			(width 0)
@@ -6072,7 +6072,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 156.21) (xy 107.95 156.21)
+			(xy 148.59 107.95) (xy 140.97 107.95)
 		)
 		(stroke
 			(width 0)
@@ -6782,7 +6782,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 163.83) (xy 107.95 163.83)
+			(xy 148.59 105.41) (xy 140.97 105.41)
 		)
 		(stroke
 			(width 0)
@@ -7538,13 +7538,13 @@
 		(uuid "339f8cc0-b197-45f5-a192-ac9c76ce3873")
 	)
 	(label "TACH1"
-		(at 100.33 156.21 0)
+		(at 148.59 107.95 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "40e8f1e7-1f42-4f0f-aa68-fde37eff459b")
 	)
@@ -7593,7 +7593,7 @@
 		(uuid "53d1601b-ddd8-40aa-9ea4-5c348a536474")
 	)
 	(label "TEMP"
-		(at 140.97 100.33 0)
+		(at 102.87 128.27 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -7703,13 +7703,13 @@
 		(uuid "b1871f73-cef7-4c8e-a874-d361f540186b")
 	)
 	(label "PWM"
-		(at 100.33 163.83 0)
+		(at 148.59 105.41 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "bb838013-5d30-4274-a4ff-817fac54d16b")
 	)
@@ -7725,13 +7725,13 @@
 		(uuid "c17f9ad5-f33f-47f7-ae23-a1f06a0ca796")
 	)
 	(label "TACH2"
-		(at 100.33 158.75 0)
+		(at 148.59 102.87 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "d364d3e4-a451-475b-9417-6a0cfed6094f")
 	)
