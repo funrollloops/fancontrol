@@ -2,3 +2,5 @@ pcb/fancontroller-backups/**
 pcb/#*
 pcb/~*
 firmware/build/**
+build/**
+firmware/release/**

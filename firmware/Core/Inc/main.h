@@ -66,6 +66,8 @@ void SystemClock_Config(void);
 #define TACH1_GPIO_Port GPIOA
 #define TEMP_Pin GPIO_PIN_1
 #define TEMP_GPIO_Port GPIOB
+#define LED_Pin GPIO_PIN_2
+#define LED_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
