@@ -60,14 +60,20 @@ void SystemClock_Config(void);
 /* Private defines -----------------------------------------------------------*/
 #define TACH2_Pin GPIO_PIN_2
 #define TACH2_GPIO_Port GPIOA
+#define TACH2_EXTI_IRQn EXTI2_IRQn
 #define PWM_Pin GPIO_PIN_3
 #define PWM_GPIO_Port GPIOA
 #define TACH1_Pin GPIO_PIN_4
 #define TACH1_GPIO_Port GPIOA
+#define TACH1_EXTI_IRQn EXTI4_IRQn
+#define POT_LOW_Pin GPIO_PIN_0
+#define POT_LOW_GPIO_Port GPIOB
 #define TEMP_Pin GPIO_PIN_1
 #define TEMP_GPIO_Port GPIOB
 #define LED_Pin GPIO_PIN_2
 #define LED_GPIO_Port GPIOB
+#define POT_HIGH_Pin GPIO_PIN_10
+#define POT_HIGH_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
