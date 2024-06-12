@@ -8,27 +8,21 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug")
 endif()
 
-# Set the project name
 set(CMAKE_PROJECT_NAME fancontrol)
-
-# Include toolchain file
 include("cmake/gcc-arm-none-eabi.cmake")
 
-# Enable compile command to ease indexing with e.g. clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 
-# Enable CMake support for ASM and C languages
 enable_language(C ASM)
 
-# Core project settings
 project(${CMAKE_PROJECT_NAME})
-message("Build type: " ${CMAKE_BUILD_TYPE})
+
 add_executable(${CMAKE_PROJECT_NAME} Core/Src/main.c main.cc)
 
-# Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
-target_link_libraries(${CMAKE_PROJECT_NAME} stm32cubemx)
+target_link_libraries(${CMAKE_PROJECT_NAME} stm32cubemx celsius_table)
+add_dependencies(${CMAKE_PROJECT_NAME} celsius_table)
 
 add_custom_target(flash
   COMMAND ${STM32_CUBE_PROGRAMMER} -c port=SWD -w ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.elf
@@ -36,3 +30,13 @@ add_custom_target(flash
   DEPENDS ${CMAKE_PROJECT_NAME}.elf
 )
 
+# run generate_table.py to generate adc_to_celsius.h
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/adc_to_celsius.h ${CMAKE_CURRENT_BINARY_DIR}/adc_to_celsius.c
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+  COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/generate_table.py
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/generate_table.py
+  COMMENT "Generating adc_to_celsius.h"
+)
+add_library(celsius_table ${CMAKE_CURRENT_BINARY_DIR}/adc_to_celsius.c)
+target_include_directories(celsius_table INTERFACE ${CMAKE_CURRENT_BINARY_DIR})

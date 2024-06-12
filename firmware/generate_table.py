@@ -23,8 +23,11 @@ def celsius_from_adc(adc):
 def adc_from_celsius(celsius):
   return exp((213 - celsius) / 34.3)
 
-with open('celsius_from_adc_table.h', 'w') as f:
-  print('#include <stdint.h>', file=f)
+with open('adc_to_celsius.c', 'w') as f:
+  print('#include "adc_to_celsius.h"', file=f)
   print('const uint16_t celsius_from_adc_table[] = {', file=f)
   print(', '.join('%d' % adc_from_celsius(c) for c in range(0, 100)), file=f)
   print('};', file=f)
+with open('adc_to_celsius.h', 'w') as f:
+  print('#include <stdint.h>', file=f)
+  print('extern const uint16_t celsius_from_adc_table[];', file=f)

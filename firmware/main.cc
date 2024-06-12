@@ -5,6 +5,7 @@
 #include "i2c.h"
 #include "stm32f1xx_hal.h"
 #include "tim.h"
+#include "adc_to_celsius.h"
 
 enum ADC_MODE {
   ADC_MODE_POLLING,
