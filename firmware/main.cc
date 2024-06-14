@@ -44,6 +44,15 @@ void ssd1306_WriteInt(uint16_t num, SSD1306_Font_t font, SSD1306_COLOR color) {
   ssd1306_WriteString(str, font, color);
 }
 
+int write_line(int ypos, SSD1306_Font_t font, const char *prefix, uint16_t num,
+               const char *suffix) {
+  ssd1306_SetCursor(0, ypos);
+  ssd1306_WriteString(prefix, font, White);
+  ssd1306_WriteInt(num, font, White);
+  ssd1306_WriteString(suffix, font, White);
+  return ypos + font.height + 2;
+}
+
 uint8_t fan_speed(int temp) {
   static constexpr uint8_t MIN_SPEED = 20;
   static constexpr uint8_t MAX_SPEED = 100;
@@ -92,7 +101,6 @@ int main(void) {
   } else if constexpr (kAdcMode == ADC_MODE_DMA) {
     HAL_ADC_Start_DMA(&hadc2, &adc_val, 2);
   }
-  uint16_t i = 0;
   while (1) {
     tach1 = 0;
     tach2 = 0;
@@ -110,31 +118,26 @@ int main(void) {
       HAL_ADC_ConvCpltCallback(&hadc2);
     }
     ssd1306_Fill(Black);
-    ssd1306_SetCursor(0, 0);
-    ssd1306_WriteString("Tach1: ", Font_7x10, White);
-    ssd1306_WriteInt(t1, Font_7x10, White);
-    ssd1306_WriteString("rpm", Font_6x8, White);
-    ssd1306_SetCursor(0, 10);
-    ssd1306_WriteString("Tach2: ", Font_7x10, White);
-    ssd1306_WriteInt(t2, Font_7x10, White);
-    ssd1306_WriteString("rpm", Font_6x8, White);
-    ssd1306_SetCursor(0, 20);
-    ssd1306_WriteString("ADC: ", Font_7x10, White);
-    ssd1306_WriteInt(adc_val, Font_7x10, White);
-    ssd1306_SetCursor(0, 30);
-    ssd1306_WriteString("Temp: ", Font_7x10, White);
-    ssd1306_WriteInt(temp, Font_7x10, White);
-    ssd1306_WriteString("C", Font_7x10, White);
-    ssd1306_SetCursor(0, 40);
-    ssd1306_WriteString("PWM: ", Font_7x10, White);
-    ssd1306_WriteInt(TIM2->CCR4, Font_7x10, White);
-    ssd1306_WriteString("%", Font_7x10, White);
-    ssd1306_SetCursor(0, 50);
-    ssd1306_WriteString("i: ", Font_7x10, White);
-    ssd1306_WriteInt(i, Font_7x10, White);
-    ssd1306_UpdateScreen();
+    ssd1306_SetCursor(0, 4);
+    if (temp < 99) ssd1306_WriteChar(' ', Font_16x26, White);
+    if (temp < 9) ssd1306_WriteChar(' ', Font_16x26, White);
+    ssd1306_WriteInt(temp, Font_16x26, White);
+    ssd1306_WriteString("C ", Font_11x18, White);
+    ssd1306_WriteInt(std::min<uint16_t>(99, TIM2->CCR4), Font_16x26, White);
+    ssd1306_WriteString("%", Font_11x18, White);
 
-    i++;
+    const int rpm_ypos = 62 - 2 * Font_7x10.height;
+    int ypos = rpm_ypos;
+    ypos = write_line(ypos, Font_7x10, "", t1, "rpm");
+    ssd1306_SetCursor(64, rpm_ypos);
+    ssd1306_WriteInt(t2, Font_7x10, White);
+    ssd1306_WriteString("rpm", Font_7x10, White);
+    float ar = adc_val / 4095.0;
+    const float r2 = 33.3e3;
+    const float r = ar * r2 / (1 - ar);
+    ypos = write_line(ypos, Font_7x10, "ADC=", adc_val, "  R=");
+    ssd1306_WriteInt(r, Font_7x10, White);
+    ssd1306_UpdateScreen();
   }
   return 0;
 }
