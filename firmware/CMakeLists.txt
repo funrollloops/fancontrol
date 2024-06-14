@@ -21,7 +21,7 @@ project(${CMAKE_PROJECT_NAME})
 add_executable(${CMAKE_PROJECT_NAME} Core/Src/main.c main.cc)
 
 add_subdirectory(cmake/stm32cubemx)
-target_link_libraries(${CMAKE_PROJECT_NAME} stm32cubemx celsius_table)
+target_link_libraries(${CMAKE_PROJECT_NAME} stm32cubemx celsius_table ssd1306)
 add_dependencies(${CMAKE_PROJECT_NAME} celsius_table)
 
 add_custom_target(flash
@@ -40,3 +40,9 @@ add_custom_command(
 )
 add_library(celsius_table ${CMAKE_CURRENT_BINARY_DIR}/adc_to_celsius.c)
 target_include_directories(celsius_table INTERFACE ${CMAKE_CURRENT_BINARY_DIR})
+
+
+set(STM32_SSD1306_DIR ${CMAKE_CURRENT_SOURCE_DIR}/stm32-ssd1306/ssd1306)
+add_library(ssd1306 ${STM32_SSD1306_DIR}/ssd1306.c ${STM32_SSD1306_DIR}/ssd1306_fonts.c)
+target_include_directories(ssd1306 PUBLIC ${STM32_SSD1306_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/ssd1306-conf)
+target_link_libraries(ssd1306 stm32cubemx)
