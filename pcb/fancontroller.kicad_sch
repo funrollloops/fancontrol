@@ -5707,6 +5707,10 @@
 		(uuid "4f9c7dc4-e85b-4f88-9a1a-2c7b4c76b206")
 	)
 	(no_connect
+		(at 107.95 130.81)
+		(uuid "5b16ae2f-25b6-422d-aeb8-c71aec50c10c")
+	)
+	(no_connect
 		(at 247.65 49.53)
 		(uuid "5f6afc60-27d7-4d45-ba7b-20b76316cdb7")
 	)
@@ -5721,10 +5725,6 @@
 	(no_connect
 		(at 107.95 151.13)
 		(uuid "773bf1a2-9282-4e86-8dd9-a8fc33960980")
-	)
-	(no_connect
-		(at 107.95 163.83)
-		(uuid "7a6fa390-7dbe-45ca-b07c-68dcc842ebbb")
 	)
 	(no_connect
 		(at 107.95 133.35)
@@ -6306,6 +6306,16 @@
 		)
 		(uuid "53cee2c9-4a0b-49a4-ae45-6f87892c2c17")
 	)
+	(wire
+		(pts
+			(xy 100.33 163.83) (xy 100.33 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5584cead-1993-4601-89b2-6f574c886118")
+	)
 	(polyline
 		(pts
 			(xy 218.44 55.88) (xy 218.44 66.04)
@@ -6388,7 +6398,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 130.81) (xy 100.33 130.81)
+			(xy 102.87 163.83) (xy 100.33 163.83)
 		)
 		(stroke
 			(width 0)
@@ -7278,16 +7288,6 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 130.81) (xy 100.33 132.08)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ff508700-4a0b-4cb9-820a-26245365278f")
-	)
-	(wire
-		(pts
 			(xy 204.47 68.58) (xy 196.85 68.58)
 		)
 		(stroke
@@ -7719,7 +7719,7 @@
 		(uuid "b1871f73-cef7-4c8e-a874-d361f540186b")
 	)
 	(label "APP_LED"
-		(at 101.6 130.81 180)
+		(at 101.6 163.83 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9025,7 +9025,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 100.33 137.16 0)
+		(at 100.33 170.18 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9034,7 +9034,7 @@
 		(fields_autoplaced yes)
 		(uuid "3fd11693-804f-47d5-aa3c-684a39d98011")
 		(property "Reference" "#PWR09"
-			(at 100.33 143.51 0)
+			(at 100.33 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9043,7 +9043,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 100.33 142.24 0)
+			(at 100.33 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9052,7 +9052,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 100.33 137.16 0)
+			(at 100.33 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9061,7 +9061,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 100.33 137.16 0)
+			(at 100.33 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9070,7 +9070,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 100.33 137.16 0)
+			(at 100.33 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9367,7 +9367,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_Small")
-		(at 100.33 134.62 0)
+		(at 100.33 167.64 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9377,7 +9377,7 @@
 		(fields_autoplaced yes)
 		(uuid "5549bcf7-38c9-43af-83c0-3cf0ca0f7252")
 		(property "Reference" "R9"
-			(at 97.79 133.35 0)
+			(at 97.79 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9386,7 +9386,7 @@
 			)
 		)
 		(property "Value" "1.5kΩ"
-			(at 97.79 135.89 0)
+			(at 97.79 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9395,7 +9395,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 100.33 134.62 0)
+			(at 100.33 167.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9404,7 +9404,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 100.33 134.62 0)
+			(at 100.33 167.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9413,7 +9413,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 100.33 134.62 0)
+			(at 100.33 167.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10726,7 +10726,7 @@
 	)
 	(symbol
 		(lib_id "Device:LED_Small")
-		(at 105.41 130.81 0)
+		(at 105.41 163.83 0)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10735,7 +10735,7 @@
 		(dnp no)
 		(uuid "a3a430f6-0738-411f-8a56-3d9c54720543")
 		(property "Reference" "D5"
-			(at 105.4735 124.46 0)
+			(at 105.4735 157.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10743,7 +10743,7 @@
 			)
 		)
 		(property "Value" "white"
-			(at 105.41 129.54 0)
+			(at 105.664 166.624 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10751,7 +10751,7 @@
 			)
 		)
 		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
-			(at 105.41 130.81 90)
+			(at 105.41 163.83 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10760,7 +10760,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 105.41 130.81 90)
+			(at 105.41 163.83 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10769,7 +10769,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 105.41 130.81 0)
+			(at 105.41 163.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)

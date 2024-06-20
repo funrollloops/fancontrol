@@ -1,6 +1,8 @@
 pcb/fancontroller-backups/**
 pcb/#*
 pcb/~*
+pcb/jlcpcb/gerber/**
+pcb/jlcpcb/production_files/**
 firmware/build/**
 build/**
 firmware/release/**
