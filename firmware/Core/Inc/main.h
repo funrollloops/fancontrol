@@ -58,6 +58,10 @@ void SystemClock_Config(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define OLED_Reset_Pin GPIO_PIN_0
+#define OLED_Reset_GPIO_Port GPIOA
+#define OLED_DC_Pin GPIO_PIN_1
+#define OLED_DC_GPIO_Port GPIOA
 #define TACH2_Pin GPIO_PIN_2
 #define TACH2_GPIO_Port GPIOA
 #define TACH2_EXTI_IRQn EXTI2_IRQn
@@ -66,6 +70,8 @@ void SystemClock_Config(void);
 #define TACH1_Pin GPIO_PIN_4
 #define TACH1_GPIO_Port GPIOA
 #define TACH1_EXTI_IRQn EXTI4_IRQn
+#define OLED_CS_Pin GPIO_PIN_6
+#define OLED_CS_GPIO_Port GPIOA
 #define POT_LOW_Pin GPIO_PIN_0
 #define POT_LOW_GPIO_Port GPIOB
 #define TEMP_Pin GPIO_PIN_1

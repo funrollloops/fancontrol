@@ -10,11 +10,15 @@
 #include "adc.h"
 #include "adc_to_celsius.h"
 #include "gpio.h"
-#include "i2c.h"
 #include "ssd1306.h"
 #include "ssd1306_fonts.h"
 #include "stm32f1xx_hal.h"
 #include "tim.h"
+#ifdef SSD1306_USE_SPI
+#include "spi.h"
+#else
+#include "i2c.h"
+#endif
 
 enum ADC_MODE {
   ADC_MODE_POLLING,
@@ -89,8 +93,12 @@ int main(void) {
   SystemClock_Config();
   MX_GPIO_Init();
   MX_ADC2_Init();
-  MX_I2C1_Init();
   MX_TIM2_Init();
+#ifdef SSD1306_USE_SPI
+  MX_SPI1_Init();
+#else
+  MX_I2C1_Init();
+#endif
   ssd1306_Init();
 
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
@@ -112,32 +120,37 @@ int main(void) {
     t2 = t2 * 60 / 2;
     const int temp = thermistor_adc_to_celsius(adc_val);
     set_pwm_pct(fan_speed(temp));
+    const float ar = adc_val / 4095.0;
+    const float r2 = 33.3e3;
+    const float r = ar * r2 / (1 - ar);
 
     if constexpr (kAdcMode == ADC_MODE_POLLING) {
       HAL_ADC_PollForConversion(&hadc2, 1);
       HAL_ADC_ConvCpltCallback(&hadc2);
     }
     ssd1306_Fill(Black);
-    ssd1306_SetCursor(0, 4);
-    if (temp < 99) ssd1306_WriteChar(' ', Font_16x26, White);
-    if (temp < 9) ssd1306_WriteChar(' ', Font_16x26, White);
-    ssd1306_WriteInt(temp, Font_16x26, White);
-    ssd1306_WriteString("C ", Font_11x18, White);
-    ssd1306_WriteInt(std::min<uint16_t>(99, TIM2->CCR4), Font_16x26, White);
-    ssd1306_WriteString("%", Font_11x18, White);
+    if (SSD1306_HEIGHT == 64) {
+      ssd1306_SetCursor(0, 4);
+      if (temp < 99) ssd1306_WriteChar(' ', Font_16x26, White);
+      if (temp < 9) ssd1306_WriteChar(' ', Font_16x26, White);
+      ssd1306_WriteInt(temp, Font_16x26, White);
+      ssd1306_WriteString("C ", Font_11x18, White);
+      ssd1306_WriteInt(std::min<uint16_t>(99, TIM2->CCR4), Font_16x26, White);
+      ssd1306_WriteString("%", Font_11x18, White);
 
-    const int rpm_ypos = 62 - 2 * Font_7x10.height;
-    int ypos = rpm_ypos;
-    ypos = write_line(ypos, Font_7x10, "", t1, "rpm");
-    ssd1306_SetCursor(64, rpm_ypos);
-    ssd1306_WriteInt(t2, Font_7x10, White);
-    ssd1306_WriteString("rpm", Font_7x10, White);
-    float ar = adc_val / 4095.0;
-    const float r2 = 33.3e3;
-    const float r = ar * r2 / (1 - ar);
-    ypos = write_line(ypos, Font_7x10, "ADC=", adc_val, "  R=");
-    ssd1306_WriteInt(r, Font_7x10, White);
-    ssd1306_UpdateScreen();
+      const int rpm_ypos = 62 - 2 * Font_7x10.height;
+      int ypos = rpm_ypos;
+      ypos = write_line(ypos, Font_7x10, "", t1, "rpm");
+      ssd1306_SetCursor(64, rpm_ypos);
+      ssd1306_WriteInt(t2, Font_7x10, White);
+      ssd1306_WriteString("rpm", Font_7x10, White);
+      ypos = write_line(ypos, Font_7x10, "ADC=", adc_val, "  R=");
+      ssd1306_WriteInt(r, Font_7x10, White);
+      ssd1306_UpdateScreen();
+    } else {
+      ssd1306_SetCursor(0, 0);
+      ssd1306_WriteString("Hello, World!", Font_7x10, White);
+    }
   }
   return 0;
 }

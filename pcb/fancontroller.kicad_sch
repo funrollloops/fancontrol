@@ -5786,10 +5786,6 @@
 		(at 140.97 113.03)
 		(uuid "f3ac4467-ce79-434f-b6ea-291ee04383b4")
 	)
-	(no_connect
-		(at 107.95 130.81)
-		(uuid "fe5db2e8-eeda-4069-9fe9-4210184dd5c8")
-	)
 	(wire
 		(pts
 			(xy 224.79 123.19) (xy 226.06 123.19)
@@ -6389,6 +6385,16 @@
 			(type default)
 		)
 		(uuid "6304ced5-00c3-4d01-a98e-f9d258f22d92")
+	)
+	(wire
+		(pts
+			(xy 102.87 130.81) (xy 100.33 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6cae21d5-33c4-41aa-aec1-bca890a3c8fb")
 	)
 	(polyline
 		(pts
@@ -7272,6 +7278,16 @@
 	)
 	(wire
 		(pts
+			(xy 100.33 130.81) (xy 100.33 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ff508700-4a0b-4cb9-820a-26245365278f")
+	)
+	(wire
+		(pts
 			(xy 204.47 68.58) (xy 196.85 68.58)
 		)
 		(stroke
@@ -7701,6 +7717,17 @@
 			(justify right bottom)
 		)
 		(uuid "b1871f73-cef7-4c8e-a874-d361f540186b")
+	)
+	(label "APP_LED"
+		(at 101.6 130.81 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b720bb3a-a8da-4874-9b4c-b7094dfbc5d8")
 	)
 	(label "PWM"
 		(at 148.59 105.41 180)
@@ -8997,6 +9024,73 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 100.33 137.16 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3fd11693-804f-47d5-aa3c-684a39d98011")
+		(property "Reference" "#PWR09"
+			(at 100.33 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 100.33 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 100.33 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 100.33 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 100.33 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6315a08f-1abd-4aa3-8e3f-98a35fe3a0ac")
+		)
+		(instances
+			(project "fancontroller"
+				(path "/0fbc55e3-1cb3-420e-a547-fc7bb589a137"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3VA")
 		(at 130.81 92.71 0)
 		(unit 1)
@@ -9266,6 +9360,77 @@
 			(project "fancontroller"
 				(path "/0fbc55e3-1cb3-420e-a547-fc7bb589a137"
 					(reference "#FLG03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 100.33 134.62 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5549bcf7-38c9-43af-83c0-3cf0ca0f7252")
+		(property "Reference" "R9"
+			(at 97.79 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1.5kΩ"
+			(at 97.79 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 100.33 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 100.33 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 100.33 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "136d67e8-b34a-409a-9307-637a2e9adf8d")
+		)
+		(pin "1"
+			(uuid "a6ab2962-1cd8-458b-b1b8-3a8bf477996f")
+		)
+		(instances
+			(project "fancontroller"
+				(path "/0fbc55e3-1cb3-420e-a547-fc7bb589a137"
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -10554,6 +10719,74 @@
 			(project "fancontroller"
 				(path "/0fbc55e3-1cb3-420e-a547-fc7bb589a137"
 					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED_Small")
+		(at 105.41 130.81 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a3a430f6-0738-411f-8a56-3d9c54720543")
+		(property "Reference" "D5"
+			(at 105.4735 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "white"
+			(at 105.41 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+			(at 105.41 130.81 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 105.41 130.81 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 105.41 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "50c4360a-6c23-4d72-9d69-57293ecba5b4")
+		)
+		(pin "2"
+			(uuid "a6856284-838d-4059-9b22-0d56a14589f0")
+		)
+		(instances
+			(project "fancontroller"
+				(path "/0fbc55e3-1cb3-420e-a547-fc7bb589a137"
+					(reference "D5")
 					(unit 1)
 				)
 			)
