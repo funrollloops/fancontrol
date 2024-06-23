@@ -3,6 +3,7 @@ pcb/#*
 pcb/~*
 pcb/jlcpcb/gerber/**
 pcb/jlcpcb/production_files/**
+pcb/fp-info-cache
 firmware/build/**
 build/**
 firmware/release/**
